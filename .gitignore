@@ -5,3 +5,12 @@
 *.dll
 *.stl
 *.dia~
+
+## CMAKE
+CMakeCache.txt
+CMakeFiles/
+bin/tests/test001_parser
+bin/tests/test002_Serialize
+cmake_install.cmake
+
+Makefile

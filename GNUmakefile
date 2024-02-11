@@ -1,14 +1,20 @@
+ifneq (os,)
+OS=LINUX
+export OS
+endif
+
+
 include Makefile.SUPPORTED
 
 ifeq (,$(findstring $(OS),$(SUPPORTEDPLATFORMS)))
 
-all:
+default:
 
 	@echo The OS environment variable is currently set to [$(OS)]
 	@echo Please set the OS environment variable to one of the following:
 	@echo $(SUPPORTEDPLATFORMS)
 
-.PHONY: all
+.PHONY: default
 
 else
 
@@ -60,11 +66,14 @@ package: staticlib
 	# Cleanup
 	$(RMDIR) stage
 
-clean:
-
+clean-all:clean-stage clean-packages clean-bin-suffix clean-bin-tests
+clean-stage:
 	- @$(RMDIR) stage
+clean-packages:
 	- @$(RMDIR) packages
+clean-bin-suffix:
 	- @$(RMFILE) bin/*$(SLIBSUFFIX)
+clean-bin-tests:
 	- @$(RMFILE) bin/tests/test*
 
 .PHONY: staticlib tests clean
@@ -74,3 +83,5 @@ tmp/%$(OBJSUFFIX): src/%.c $(LIBHFILES)
 	$(CCLIB) $(OPTIONS) -c -o $@ $<
 
 endif
+
+-include Makefile
