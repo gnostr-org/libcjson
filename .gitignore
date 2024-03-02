@@ -14,3 +14,4 @@ bin/tests/test002_Serialize
 cmake_install.cmake
 
 Makefile
+**.DS_Store
